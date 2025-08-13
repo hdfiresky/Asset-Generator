@@ -1,0 +1,5 @@
+{
+  "name": "Asset Generator Pro",
+  "description": "An application to automatically remove the white background from an image and generate resized asset packs for PWA and Browser Extensions.",
+  "requestFramePermissions": []
+}
