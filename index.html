@@ -11,12 +11,21 @@
             darkMode: 'class',
         }
     </script>
+    <style>
+      /* Disable default browser animation for View Transitions to allow for custom animations. */
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation: none;
+        mix-blend-mode: normal;
+      }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script type="importmap">
 {
   "imports": {
     "react/": "https://esm.sh/react@^19.1.1/",
     "react": "https://esm.sh/react@^19.1.1",
+    "react-dom": "https://esm.sh/react-dom@^19.1.1",
     "react-dom/client": "https://esm.sh/react-dom@^19.1.1/client",
     "react-dom/": "https://esm.sh/react-dom@^19.1.1/"
   }

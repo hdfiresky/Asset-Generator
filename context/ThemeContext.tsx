@@ -1,5 +1,6 @@
 
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import { flushSync } from 'react-dom';
 
 /**
  * Defines the possible theme values.
@@ -11,7 +12,7 @@ type Theme = 'light' | 'dark';
  */
 interface ThemeContextType {
   theme: Theme;
-  toggleTheme: () => void;
+  toggleTheme: (event?: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 /**
@@ -49,8 +50,44 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+  const toggleTheme = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+
+    // @ts-ignore - `startViewTransition` is not in all TS lib versions yet
+    if (!document.startViewTransition) {
+      setTheme(newTheme);
+      return;
+    }
+
+    const x = event?.clientX ?? window.innerWidth / 2;
+    const y = event?.clientY ?? window.innerHeight / 2;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    // @ts-ignore
+    const transition = document.startViewTransition(() => {
+      flushSync(() => {
+        setTheme(newTheme);
+      });
+    });
+
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 500,
+          easing: 'ease-in-out',
+          pseudoElement: '::view-transition-new(root)',
+        }
+      );
+    });
   };
 
   return (
