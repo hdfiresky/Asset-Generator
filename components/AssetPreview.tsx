@@ -1,4 +1,3 @@
-
 import React from 'react';
 import type { Asset } from '../types';
 
@@ -16,16 +15,16 @@ interface AssetPreviewProps {
  */
 const AssetPreview: React.FC<AssetPreviewProps> = ({ asset }) => {
   return (
-    <div className="group relative flex flex-col items-center justify-center space-y-2 rounded-lg border border-slate-200 bg-slate-100 p-3 text-center shadow-sm transition-all hover:shadow-md hover:border-indigo-300">
+    <div className="group relative flex flex-col items-center justify-center space-y-2 rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800 p-4 text-center transition-all hover:shadow-lg hover:scale-105 hover:border-indigo-500 dark:hover:border-indigo-400">
       <img
         src={asset.url}
         alt={asset.name}
         className="h-16 w-16 object-contain"
         aria-label={`Preview of ${asset.name}`}
       />
-      <div className="text-xs font-medium text-slate-700">
+      <div className="text-xs font-medium text-gray-700 dark:text-gray-200">
         <p className="break-all">{asset.name}</p>
-        <p className="text-slate-500">{`${asset.width}x${asset.height}`}</p>
+        <p className="text-gray-500 dark:text-gray-400">{`${asset.width}x${asset.height}`}</p>
       </div>
     </div>
   );
