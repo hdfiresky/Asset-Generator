@@ -1,6 +1,11 @@
 
 import React from 'react';
 
+/**
+ * A simple SVG spinner component to indicate loading states.
+ * @param {object} props - The component props.
+ * @param {string} [props.className] - Optional additional CSS classes for styling.
+ */
 const Spinner = ({ className }: { className?: string }) => {
   return (
     <svg
@@ -8,6 +13,8 @@ const Spinner = ({ className }: { className?: string }) => {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
+      aria-label="Loading"
+      role="status"
     >
       <circle
         className="opacity-25"

@@ -2,6 +2,10 @@
 import React from 'react';
 import { ImageIcon } from './icons';
 
+/**
+ * Renders the main header for the application.
+ * Displays the application title and a brief description.
+ */
 const Header = () => {
   return (
     <header className="bg-white shadow-sm">
