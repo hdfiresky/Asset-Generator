@@ -81,7 +81,7 @@ export const CheckIcon = ({ className }: { className?: string }) => (
  */
 export const SunIcon = ({ className }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className || 'w-6 h-6'}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.95-4.243l-1.59-1.59M3.75 12H6m4.243-4.95l1.59-1.59" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z M12 6V4 M12 18v2 M6 12H4 M18 12h2 M16.24 7.76L17.66 6.34 M16.24 16.24L17.66 17.66 M7.76 16.24L6.34 17.66 M7.76 7.76L6.34 6.34" />
     </svg>
 );
 
