@@ -46,7 +46,7 @@ jobs:
         run: zip -r dist.zip dist
 
       # 7. Copy build archive to server
-      - name: Copy package to server
+      - name: Copy package to server Error is here
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
