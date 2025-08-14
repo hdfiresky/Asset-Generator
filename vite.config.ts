@@ -26,26 +26,26 @@ export default defineConfig(({ mode }) => {
           "pwa-512x512.png",
         ],
         manifest: {
-          name: "Dramaverse",
-          short_name: "Dramaverse",
-          start_url: "/dramaverse/",
-          scope: "/dramaverse/",
+          name: "Asset generator",
+          short_name: "AssetGen",
+          start_url: "/asset-generator/",
+          scope: "/asset-generator/",
           display: "standalone",
           background_color: "#ffffff",
           theme_color: "#ffffff",
           icons: [
             {
-              src: "/dramaverse/pwa-192x192.png",
+              src: "/asset-generator/pwa-192x192.png",
               sizes: "192x192",
               type: "image/png",
             },
             {
-              src: "/dramaverse/pwa-512x512.png",
+              src: "/asset-generator/pwa-512x512.png",
               sizes: "512x512",
               type: "image/png",
             },
             {
-              src: "/dramaverse/pwa-512x512.png",
+              src: "/asset-generator/pwa-512x512.png",
               sizes: "512x512",
               type: "image/png",
               purpose: "any maskable",
