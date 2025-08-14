@@ -56,15 +56,6 @@ jobs:
           target: "/tmp" # Copy to a temporary directory
 
       # 8. Deploy on server with verification
-      - name: Deploy and Verify on Server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "dist.zip"
-          target: "/tmp"
-
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
