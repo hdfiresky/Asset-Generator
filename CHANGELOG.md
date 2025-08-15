@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.8.0...v0.9.0) (2025-08-15)
+
+
+### Features
+
+* inital workflow ([86c2042](https://github.com/hdfiresky/Problembuddy-deploy/commit/86c204285600e4a999b64fbe6f8a8ddaf9e6d1e0))
+
+
+### Bug Fixes
+
+* removing duplicate scp from deploy ([512ccd4](https://github.com/hdfiresky/Problembuddy-deploy/commit/512ccd4b07d707297a1d4b3b010aa38869d669b4))
+* unkown char in index.html removed ([5826ef8](https://github.com/hdfiresky/Problembuddy-deploy/commit/5826ef8d3b99e7f603bb794f7f6fb97f1f920574))
+* unkown char in index.html removed ([d759ade](https://github.com/hdfiresky/Problembuddy-deploy/commit/d759ade5449e7384cef975a801f18b35d03181f0))
+
 ## [0.8.0](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.7.0...v0.8.0) (2025-08-15)
 
 ## [0.7.0](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.6.0...v0.7.0) (2025-08-14)
