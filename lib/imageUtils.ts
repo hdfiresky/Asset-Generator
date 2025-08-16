@@ -1,4 +1,3 @@
-
 import type { Asset } from '../types';
 
 /**
@@ -98,10 +97,12 @@ export const resizeImage = (image: HTMLImageElement, width: number, height: numb
             centerShiftX, centerShiftY, image.width * ratio, image.height * ratio
         );
 
+        const url = canvas.toDataURL('image/png');
+
         // Convert the canvas content to a Blob
         canvas.toBlob((blob) => {
             if (blob) {
-                resolve({ name, blob, url: URL.createObjectURL(blob), width, height });
+                resolve({ name, blob, url, width, height });
             } else {
                 reject(new Error('Canvas to Blob conversion failed'));
             }
