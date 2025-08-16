@@ -26,17 +26,6 @@ const App: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [shouldRemoveBackground, setShouldRemoveBackground] = useState<boolean>(true);
 
-  useEffect(() => {
-    return () => {
-      if (generatedAssets) {
-        [...generatedAssets.pwa, ...generatedAssets.extension].forEach(asset => URL.revokeObjectURL(asset.url));
-      }
-      if (processedPreviewUrl) {
-        URL.revokeObjectURL(processedPreviewUrl);
-      }
-    };
-  }, [generatedAssets, processedPreviewUrl]);
-
   const resetState = () => {
     setOriginalFile(null);
     setImageInfo(null);
