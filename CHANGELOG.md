@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.11.0](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.10.19...v0.11.0) (2025-08-16)
+
+
+### Features
+
+* Add background removal toggle ([edf7261](https://github.com/hdfiresky/Problembuddy-deploy/commit/edf7261714d25d9caa0e48fb51d493c2258f5d2f))
+* deploy assets ([0ed3cf4](https://github.com/hdfiresky/Problembuddy-deploy/commit/0ed3cf43f0913920fd05fd6adda05330d797e8ee))
+* Improve image processing and download logic ([f750756](https://github.com/hdfiresky/Problembuddy-deploy/commit/f750756c05f5922b90451abd3dcdcf98bc01ef7f))
+
+
+### Bug Fixes
+
+* Remove unnecessary URL revoke logic ([a55059b](https://github.com/hdfiresky/Problembuddy-deploy/commit/a55059baedf7a7dafa40adc8724f74cb3caff68b))
+* reverting to v0.10.19 ([96ef1c5](https://github.com/hdfiresky/Problembuddy-deploy/commit/96ef1c52631d91444835af38843d56a45019efbb))
+* version change ([be9be94](https://github.com/hdfiresky/Problembuddy-deploy/commit/be9be9429d7adad4faf03296974ece797d58d481))
+
+## [0.3.0](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.2.0...v0.3.0) (2025-08-14)
+
+## [0.2.0](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.1.0...v0.2.0) (2025-08-14)
+
+## 0.1.0 (2025-08-14)
+
 ## [0.1.0](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.10.19...v0.1.0) (2025-08-16)
 
 
