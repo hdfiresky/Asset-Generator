@@ -5,7 +5,7 @@ import ImageUploader from './components/ImageUploader';
 import Spinner from './components/Spinner';
 import Step from './components/Step';
 import ResultDisplay from './components/ResultDisplay';
-import { createImageFromFile, createImageFromUrl, removeWhiteBackground, resizeImage } from './lib/imageUtils';
+import { createImageFromUrl, removeWhiteBackground, resizeImage } from './lib/imageUtils';
 
 declare var JSZip: any;
 
@@ -23,6 +23,7 @@ const App: React.FC = () => {
   const [loadingMessage, setLoadingMessage] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(1);
+  const [shouldRemoveBackground, setShouldRemoveBackground] = useState<boolean>(true);
 
   useEffect(() => {
     return () => {
@@ -48,7 +49,7 @@ const App: React.FC = () => {
     resetState();
     setOriginalFile(file);
     setIsLoading(true);
-    setLoadingMessage('Removing background...');
+    setLoadingMessage(shouldRemoveBackground ? 'Removing background...' : 'Processing image...');
     setCurrentStep(1.5); // Intermediate step for processing
 
     try {
@@ -58,9 +59,13 @@ const App: React.FC = () => {
         img.onload = async () => {
           setImageInfo({ url: img.src, width: img.width, height: img.height });
           try {
-            const originalImage = await createImageFromUrl(img.src);
-            const transparentImageUrl = await removeWhiteBackground(originalImage);
-            setProcessedPreviewUrl(transparentImageUrl);
+            if (shouldRemoveBackground) {
+                const originalImage = await createImageFromUrl(img.src);
+                const transparentImageUrl = await removeWhiteBackground(originalImage);
+                setProcessedPreviewUrl(transparentImageUrl);
+            } else {
+                setProcessedPreviewUrl(img.src);
+            }
             setCurrentStep(2);
           } catch (e) {
             setError(e instanceof Error ? e.message : 'Failed to process image background.');
@@ -77,7 +82,7 @@ const App: React.FC = () => {
         setCurrentStep(1);
         setIsLoading(false);
     }
-  }, []);
+  }, [shouldRemoveBackground]);
 
   const handleGenerateAssets = async () => {
     if (!processedPreviewUrl) return;
@@ -137,6 +142,31 @@ const App: React.FC = () => {
                 
                 <Step stepNumber={1} title="Upload Your Logo" isCompleted={currentStep > 1} isActive={currentStep === 1}>
                     <ImageUploader onImageSelect={handleImageSelect} imageInfo={imageInfo} />
+                    <div className="mt-6 flex items-center justify-center">
+                        <label htmlFor="bg-toggle" className="flex items-center cursor-pointer select-none">
+                            <span className="mr-3 text-sm font-medium text-gray-900 dark:text-gray-300">Remove white background</span>
+                            <div className="relative">
+                                <input
+                                    type="checkbox"
+                                    id="bg-toggle"
+                                    className="sr-only peer"
+                                    checked={shouldRemoveBackground}
+                                    onChange={() => setShouldRemoveBackground(prev => !prev)}
+                                    disabled={!!imageInfo}
+                                />
+                                <div className={`
+                                    w-11 h-6 bg-gray-200 rounded-full 
+                                    peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800
+                                    dark:bg-gray-700
+                                    peer-checked:after:translate-x-full peer-checked:after:border-white
+                                    after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+                                    after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 
+                                    after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600
+                                    ${!!imageInfo ? 'cursor-not-allowed opacity-60' : ''}
+                                `}></div>
+                            </div>
+                        </label>
+                    </div>
                     {isLoading && currentStep < 2 && (
                          <div className="mt-4 flex items-center justify-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
                              <Spinner className="h-5 w-5 text-indigo-500"/>
@@ -148,7 +178,12 @@ const App: React.FC = () => {
                 <Step stepNumber={2} title="Preview & Generate" isCompleted={currentStep > 2} isActive={currentStep === 2}>
                     {processedPreviewUrl && (
                         <div className="space-y-4">
-                            <p className="text-sm text-gray-600 dark:text-gray-400">We've removed the background. If it looks good, generate the final assets.</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                                {shouldRemoveBackground 
+                                    ? "We've removed the background. If it looks good, generate the final assets."
+                                    : "Preview of your original image. If it looks good, generate the final assets."
+                                }
+                            </p>
                             <div className="flex justify-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-dashed border-gray-300 dark:border-gray-600">
                                 <img src={processedPreviewUrl} alt="Processed preview" className="max-h-48 rounded-md" />
                             </div>
