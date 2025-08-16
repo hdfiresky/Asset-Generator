@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import type { Asset, GeneratedAssetSets, ImageInfo } from './types';
 import Header from './components/Header';
 import ImageUploader from './components/ImageUploader';
@@ -6,6 +6,7 @@ import Spinner from './components/Spinner';
 import Step from './components/Step';
 import ResultDisplay from './components/ResultDisplay';
 import { createImageFromUrl, removeWhiteBackground, resizeImage } from './lib/imageUtils';
+import { DownloadIcon } from './components/icons';
 
 declare var JSZip: any;
 
@@ -24,17 +25,6 @@ const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [shouldRemoveBackground, setShouldRemoveBackground] = useState<boolean>(true);
-
-  useEffect(() => {
-    return () => {
-      if (generatedAssets) {
-        [...generatedAssets.pwa, ...generatedAssets.extension].forEach(asset => URL.revokeObjectURL(asset.url));
-      }
-      if (processedPreviewUrl) {
-        URL.revokeObjectURL(processedPreviewUrl);
-      }
-    };
-  }, [generatedAssets, processedPreviewUrl]);
 
   const resetState = () => {
     setOriginalFile(null);
@@ -133,6 +123,25 @@ const App: React.FC = () => {
     }
   };
 
+  const handleDownloadSvg = () => {
+    if (!processedPreviewUrl || !imageInfo) return;
+
+    const svgContent = `<svg width="${imageInfo.width}" height="${imageInfo.height}" viewBox="0 0 ${imageInfo.width} ${imageInfo.height}" xmlns="http://www.w3.org/2000/svg">
+  <image href="${processedPreviewUrl}" x="0" y="0" width="${imageInfo.width}" height="${imageInfo.height}" />
+</svg>`;
+
+    const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    const fileName = originalFile?.name.replace(/\.[^/.]+$/, '') || 'logo';
+    link.download = `${fileName}.svg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-gray-800 dark:bg-slate-900 dark:text-gray-300 transition-colors duration-300">
         <Header />
@@ -187,18 +196,27 @@ const App: React.FC = () => {
                             <div className="flex justify-center p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-dashed border-gray-300 dark:border-gray-600">
                                 <img src={processedPreviewUrl} alt="Processed preview" className="max-h-48 rounded-md" />
                             </div>
-                            <button
-                                onClick={handleGenerateAssets}
-                                disabled={isLoading}
-                                className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:ring-offset-slate-900 disabled:bg-gray-400 dark:disabled:bg-gray-700 disabled:cursor-not-allowed transition-colors"
-                            >
-                                {isLoading ? (
-                                    <>
-                                        <Spinner className="h-5 w-5 mr-2" />
-                                        {loadingMessage}
-                                    </>
-                                ) : 'Generate Assets'}
-                            </button>
+                            <div className="flex flex-col sm:flex-row-reverse gap-3">
+                                <button
+                                    onClick={handleGenerateAssets}
+                                    disabled={isLoading}
+                                    className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:ring-offset-slate-900 disabled:bg-gray-400 dark:disabled:bg-gray-700 disabled:cursor-not-allowed transition-colors"
+                                >
+                                    {isLoading ? (
+                                        <>
+                                            <Spinner className="h-5 w-5 mr-2" />
+                                            {loadingMessage}
+                                        </>
+                                    ) : 'Generate Assets'}
+                                </button>
+                                <button
+                                    onClick={handleDownloadSvg}
+                                    className="w-full sm:w-auto inline-flex justify-center items-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md shadow-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:ring-offset-slate-900 transition-colors"
+                                >
+                                    <DownloadIcon className="h-5 w-5 mr-2" />
+                                    Download SVG
+                                </button>
+                            </div>
                         </div>
                     )}
                 </Step>
