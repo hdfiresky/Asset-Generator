@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.3](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.11.2...v0.11.3) (2025-08-16)
+
+
+### Bug Fixes
+
+* adding vite config ([cad7114](https://github.com/hdfiresky/Problembuddy-deploy/commit/cad71145bd5fef60ab1f2ea094dd1f7820d10b8d))
+
 ### [0.11.2](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.11.1...v0.11.2) (2025-08-16)
 
 
