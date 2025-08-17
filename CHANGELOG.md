@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.4](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.11.3...v0.11.4) (2025-08-17)
+
+
+### Features
+
+* Support WEBP format and quality settings ([#4](https://github.com/hdfiresky/Problembuddy-deploy/issues/4)) ([ce02ad6](https://github.com/hdfiresky/Problembuddy-deploy/commit/ce02ad63fe653a72a152d8f974bf21e9e192b242))
+
 ### [0.11.3](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.11.2...v0.11.3) (2025-08-16)
 
 
