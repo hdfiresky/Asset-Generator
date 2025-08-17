@@ -21,9 +21,9 @@ export default defineConfig(({ mode }) => {
         includeAssets: [
           "robots.txt",
           "favicon.png",
-          "apple-touch-icon.png",
-          "pwa-192x192.png",
-          "pwa-512x512.png",
+          "apple-touch-icon.webp",
+          "pwa-192x192.webp",
+          "pwa-512x512.webp",
         ],
         manifest: {
           name: "asset-generator",
@@ -35,19 +35,19 @@ export default defineConfig(({ mode }) => {
           theme_color: "#ffffff",
           icons: [
             {
-              src: "/asset-generator/pwa-192x192.png",
+              src: "/asset-generator/pwa-192x192.webp",
               sizes: "192x192",
-              type: "image/png",
+              type: "image/webp",
             },
             {
-              src: "/asset-generator/pwa-512x512.png",
+              src: "/asset-generator/pwa-512x512.webp",
               sizes: "512x512",
-              type: "image/png",
+              type: "image/webp",
             },
             {
-              src: "/asset-generator/pwa-512x512.png",
+              src: "/asset-generator/pwa-512x512.webp",
               sizes: "512x512",
-              type: "image/png",
+              type: "image/webp",
               purpose: "any maskable",
             },
           ],
