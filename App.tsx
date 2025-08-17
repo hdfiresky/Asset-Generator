@@ -83,11 +83,21 @@ const App: React.FC = () => {
 
     try {
         const processedImage = await createImageFromUrl(processedPreviewUrl);
-        const pwaSizes = [{ name: 'apple-touch-icon.png', width: 512, height: 512 }, { name: 'pwa-512x512.png', width: 512, height: 512 }, { name: 'pwa-192x192.png', width: 192, height: 192 }, { name: 'favicon.png', width: 32, height: 32 }];
-        const extensionSizes = [{ name: 'logo.png', width: 1024, height: 1024 }, { name: 'icon128.png', width: 128, height: 128 }, { name: 'icon48.png', width: 48, height: 48 }, { name: 'icon16.png', width: 16, height: 16 }];
+        const pwaSizes = [
+            { name: 'apple-touch-icon.webp', width: 512, height: 512, format: 'image/webp' as const, quality: 0.9 },
+            { name: 'pwa-512x512.webp', width: 512, height: 512, format: 'image/webp' as const, quality: 0.9 },
+            { name: 'pwa-192x192.webp', width: 192, height: 192, format: 'image/webp' as const, quality: 0.9 },
+            { name: 'favicon.png', width: 32, height: 32, format: 'image/png' as const }
+        ];
+        const extensionSizes = [
+            { name: 'logo.webp', width: 1024, height: 1024, format: 'image/webp' as const, quality: 0.9 },
+            { name: 'icon128.png', width: 128, height: 128, format: 'image/png' as const },
+            { name: 'icon48.png', width: 48, height: 48, format: 'image/png' as const },
+            { name: 'icon16.png', width: 16, height: 16, format: 'image/png' as const }
+        ];
         
-        const pwaPromises = pwaSizes.map(s => resizeImage(processedImage, s.width, s.height, s.name));
-        const extPromises = extensionSizes.map(s => resizeImage(processedImage, s.width, s.height, s.name));
+        const pwaPromises = pwaSizes.map(s => resizeImage(processedImage, s.width, s.height, s.name, s.format, s.quality));
+        const extPromises = extensionSizes.map(s => resizeImage(processedImage, s.width, s.height, s.name, s.format, s.quality));
 
         const pwaAssets = await Promise.all(pwaPromises);
         const extensionAssets = await Promise.all(extPromises);
