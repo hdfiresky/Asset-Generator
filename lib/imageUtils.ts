@@ -72,9 +72,18 @@ export const removeWhiteBackground = (image: HTMLImageElement): Promise<string> 
  * @param width The target width of the output image.
  * @param height The target height of the output image.
  * @param name The desired filename for the output asset.
+ * @param format The desired output image format.
+ * @param quality The quality setting for lossy formats like 'image/webp'.
  * @returns A promise that resolves to an Asset object containing the resized image blob, its URL, and dimensions.
  */
-export const resizeImage = (image: HTMLImageElement, width: number, height: number, name:string): Promise<Asset> => {
+export const resizeImage = (
+    image: HTMLImageElement, 
+    width: number, 
+    height: number, 
+    name:string,
+    format: 'image/png' | 'image/webp' = 'image/png',
+    quality?: number
+): Promise<Asset> => {
     return new Promise((resolve, reject) => {
         const canvas = document.createElement('canvas');
         canvas.width = width;
@@ -97,15 +106,14 @@ export const resizeImage = (image: HTMLImageElement, width: number, height: numb
             centerShiftX, centerShiftY, image.width * ratio, image.height * ratio
         );
 
-        const url = canvas.toDataURL('image/png');
-
         // Convert the canvas content to a Blob
         canvas.toBlob((blob) => {
             if (blob) {
+                const url = URL.createObjectURL(blob);
                 resolve({ name, blob, url, width, height });
             } else {
                 reject(new Error('Canvas to Blob conversion failed'));
             }
-        }, 'image/png');
+        }, format, quality);
     });
 };
