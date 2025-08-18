@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.6](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.11.5...v0.11.6) (2025-08-18)
+
+
+### Bug Fixes
+
+* asset generator pwa name fix ([52412a7](https://github.com/hdfiresky/Problembuddy-deploy/commit/52412a77f98ea506a71bbdf0ffa2d789e481e251))
+
 ### [0.11.5](https://github.com/hdfiresky/Problembuddy-deploy/compare/v0.11.4...v0.11.5) (2025-08-17)
 
 
